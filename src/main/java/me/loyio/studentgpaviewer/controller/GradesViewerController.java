@@ -35,7 +35,6 @@ public class GradesViewerController {
         map.put("pageSize",pageSize);
         Integer totalCount = gradesService.getTotalCount();
         List<Grades> gradeList = gradesService.getGradePage(map);
-        //PageUtils<Grade> pageUtils = new PageUtils<>(pageIndex,pageSize,totalCount,gradeList);
         Map<String,Object> data = new HashMap<>();
         data.put("total",totalCount);
         data.put("rows",gradeList);

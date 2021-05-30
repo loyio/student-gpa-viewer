@@ -11,29 +11,34 @@
     <script type="text/javascript" src="assets/jquery.easyui.min.js"></script>
     <style>
         .panel-header{background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);}
+        .main-center{width: 900px;height: 300px;margin: 50px auto auto;position: absolute;top: 0;left: 0;right: 0;bottom: 0;}
     </style>
 </head>
-<table id="dg" title="学生成绩单" style="width:900px;height:300px" data-options="
+<body>
+<div class="main-center">
+    <table id="dg" title="<center>学生成绩单</center>" data-options="
 				rownumbers:true,
 				singleSelect:true,
 				autoRowHeight:false,
 				pagination:true,
 				pageSize:5">
-    <thead>
-    <tr>
-        <th field="cno" width="80">课程代码</th>
-        <th field="cName" width="120">课程名称</th>
-        <th field="sno" width="100">学号</th>
-        <th field="sName" width="50" >姓名</th>
-        <th field="grade" width="50" >成绩</th>
-        <th field="credit" width="50" >学分</th>
-        <th field="gpa" width="50">绩点</th>
-        <th field="dept" width="150">学院</th>
-        <th field="cType" width="110">课程类型</th>
-        <th field="tName" width="110">教师</th>
-    </tr>
-    </thead>
-</table>
+        <thead>
+        <tr>
+            <th field="cno" width="80">课程代码</th>
+            <th field="cName" width="120">课程名称</th>
+            <th field="sno" width="100">学号</th>
+            <th field="sName" width="50" >姓名</th>
+            <th field="grade" width="50" >成绩</th>
+            <th field="credit" width="50" >学分</th>
+            <th field="gpa" width="50">绩点</th>
+            <th field="dept" width="150">学院</th>
+            <th field="cType" width="110">课程类型</th>
+            <th field="tName" width="110">教师</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
 </body>
 </html>
 <script>
