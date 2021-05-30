@@ -26,8 +26,7 @@ public class GradesViewerController {
     @RequestMapping("/showGrade")
     @ResponseBody
     public String showGrade(@RequestParam(value = "pageNum") Integer pageIndex,
-                            @RequestParam(value = "pageSize") Integer pageSize,
-                            Map<String, Object> allQuestionsMap) {
+                            @RequestParam(value = "pageSize") Integer pageSize) {
         pageIndex = pageIndex == 0 ? 1 : pageIndex;
         pageSize = pageSize == 0 ? 5 : pageSize;
         Map<String,Object> map = new HashMap<>();
