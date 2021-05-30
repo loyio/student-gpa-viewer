@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loyio的成绩单</title>
+    <link type="image/x-icon" href="assets/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="assets/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="assets/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="assets/demo/demo.css">
+    <script type="text/javascript" src="assets/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/jquery.easyui.min.js"></script>
+    <style>
+        .panel-header{background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);}
+    </style>
+</head>
+<table id="dg" title="学生成绩单" style="width:900px;height:300px" data-options="
+				rownumbers:true,
+				singleSelect:true,
+				autoRowHeight:false,
+				pagination:true,
+				pageSize:5">
+    <thead>
+    <tr>
+        <th field="cno" width="80">课程代码</th>
+        <th field="cName" width="120">课程名称</th>
+        <th field="sno" width="100">学号</th>
+        <th field="sName" width="50" >姓名</th>
+        <th field="grade" width="50" >成绩</th>
+        <th field="credit" width="50" >学分</th>
+        <th field="gpa" width="50">绩点</th>
+        <th field="dept" width="150">学院</th>
+        <th field="cType" width="110">课程类型</th>
+        <th field="tName" width="110">教师</th>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>
+<script>
+
+    var incubGloPageNumber = 1;
+    var incubGloPageSize = 0;
+
+    $('#dg').datagrid({
+        url: '/showGrade',
+        method: 'post',
+        //Parameter
+        queryParams: {
+            pageNum: incubGloPageNumber,
+            pageSize: incubGloPageSize
+        },
+        border: true,
+        fitColumns: false,
+        rownumbers: false,
+        nowrap: true,
+        singleSelect: true,
+        pagination: true
+    });
+
+    $('#dg').datagrid('getPager').pagination({
+        pageSize: 5,
+        pageList: [5, 10, 15],
+        beforePageText: '第',
+        afterPageText: '页  共 {pages} 页',
+        displayMsg: '当前显示 {from} - {to} 条记录  共 {total} 条记录',
+        /**
+         * Paging Search
+         * @param pageIndex
+         * @param pageSize
+         */
+        onSelectPage: function (pageIndex, pageSize) {
+            incubGloPageNumber = pageIndex;
+            incubGloPageSize = pageSize;
+            incubQueryInfo(pageIndex, pageSize);
+
+        }
+    });
+
+    /**
+     * Get The Page Info
+     * @param pageIndex
+     * @param pageSize
+     */
+    function incubQueryInfo(pageIndex, pageSize) {
+        var handler ="/showGrade"
+        var opts = $("#dg").datagrid("options");
+        var queryParams = opts.queryParams;
+        queryParams.pageNum = pageIndex;
+        queryParams.pageSize = pageSize;
+        $("#dg").datagrid("options").url = handler;
+        //重新加载表格
+        $("#dg").datagrid("reload");
+
+        var start = (pageIndex - 1) * pageSize;
+        var end = start + pageSize;
+        var rowNumbers = $(".datagrid-cell-rownumber");
+        $(rowNumbers).each(function (index) {
+            var row = parseInt($(rowNumbers[index]).html()) + parseInt(start);
+            $(rowNumbers[index]).html("");
+            $(rowNumbers[index]).html(row);
+        });
+
+    }
+</script>
